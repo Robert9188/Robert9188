@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Employee;
 
+use App\Models\Role;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleActionRequest extends FormRequest
@@ -25,7 +26,7 @@ class RoleActionRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:20'],
-            'display_name' => ['string', 'max:50'],
+            'display_name' => ['string', 'max:80'],
             'description' => ['string', 'max:200'],
         ];
     }
@@ -37,8 +38,28 @@ class RoleActionRequest extends FormRequest
             'description' => $this->description,
         ]);
 
-        foreach ($request->input('permissions') as $key => $permission){
+        foreach ($this->input('permissions') as $key => $permission){
             $role->attachPermission($key);
         }
+
+        return $role;
+    }
+
+    public function updateRole($role){
+        $role->update([
+            'name' => $this->name,
+            'display_name' => $this->display_name,
+            'description' => $this->description,
+        ]);
+
+        $permissions = [];
+
+        foreach ($this->input('permissions') as $key => $permission){
+            array_push($permissions, $key);
+        }
+
+        $role->syncPermissions($permissions);
+
+        return $role;
     }
 }

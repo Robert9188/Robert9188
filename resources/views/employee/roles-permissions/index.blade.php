@@ -14,6 +14,7 @@
                     <div class="">
                         @include('employee.dashboard.sidebar', [
                             'sidebarLinks' => [
+                                ['id' => route('employee.roles-permissions'), 'content' => 'Roles et Permissions'],
                                 ['id' => route('employee.role.create'), 'content' => 'Ajouter Role'],
                                 ['id' => route('employee.permission.create'), 'content' => 'Ajouter Permissions'],
                             ]
@@ -48,6 +49,7 @@
                                                             <td class="text-center py-4">{{$role->display_name}}</td>
                                                             <td class="text-center py-4">
                                                                 <a href="{{route('employee.role.edit', $role)}}" class="text-blue-500 hover:focus:text-indigo-500 hover:focus:underline px-2 py-1">edit</a>
+                                                                <a href="{{route('employee.role.delete', $role)}}" class="text-red-500 hover:focus:text-red-500 hover:focus:underline px-2 py-1">delete</a>
                                                             </td>
                                                         </tr>
                                                     @else
@@ -57,6 +59,8 @@
                                                             <td class="text-center py-4">{{$role->display_name}}</td>
                                                             <td class="text-center py-4">
                                                                 <a href="{{route('employee.role.edit', $role)}}" class="text-blue-500 hover:focus:text-indigo-500 hover:focus:underline px-2 py-1">edit</a>
+                                                                <a href="{{route('employee.role.delete', $role)}}" class="text-red-500 hover:focus:text-red-500 hover:focus:underline px-2 py-1">delete</a>
+                                                            
                                                             </td>
                                                         </tr>
                                                     @endif
@@ -88,6 +92,8 @@
                                                         <td class="text-center py-4">{{$permission->display_name}}</td>
                                                         <td class="text-center py-4">
                                                             <a href="{{route('employee.permission.edit', $permission)}}" class="text-blue-500 hover:focus:text-indigo-500 hover:focus:underline px-2 py-1">edit</a>
+                                                            <a href="{{route('employee.permission.delete', $permission)}}" class="text-red-500 hover:focus:text-indigo-500 hover:focus:underline px-2 py-1">delete</a>
+                                                        
                                                         </td>
                                                     </tr>
                                                 @else
@@ -97,6 +103,8 @@
                                                         <td class="text-center py-4">{{$permission->display_name}}</td>
                                                         <td class="text-center py-4">
                                                             <a href="{{route('employee.permission.edit', $permission)}}" class="text-blue-500 hover:focus:text-indigo-500 hover:focus:underline px-2 py-1">edit</a>
+                                                            <a href="{{route('employee.permission.delete', $permission)}}" class="text-red-500 hover:focus:text-indigo-500 hover:focus:underline px-2 py-1">delete</a>
+
                                                         </td>
                                                     </tr>
                                                 @endif

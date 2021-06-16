@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Employee;
 
+use App\Models\Permission;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PermissionActionRequest extends FormRequest
@@ -25,7 +26,7 @@ class PermissionActionRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:20'],
-            'display_name' => ['string', 'max:50'],
+            'display_name' => ['string', 'max:80'],
             'description' => ['string', 'max:200'],
         ];
     }
@@ -37,10 +38,17 @@ class PermissionActionRequest extends FormRequest
             'description' => $this->description,
         ]);
 
-        foreach ($request->input('permissions') as $key => $permission){
-            $permission->attachPermission($key);
-        }
+        return $permission;
+    }
 
-        return $permission
+    public function upadtePermission($permission){
+
+        $permission->update([
+            'name' => $this->name,
+            'display_name' => $this->display_name,
+            'description' => $this->description,
+        ]);
+
+        return $permission;
     }
 }

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Employee\PermissionActionRequest;
 
 class PermissionController extends Controller
 {
@@ -33,9 +36,18 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionActionRequest $request)
     {
-        dd($request);
+        
+        $permission = $request->addPermission();
+
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        return view('employee.roles-permissions.index', [
+            'roles' => $roles,
+            'permissions' => $permissions,
+        ]);
     }
 
     /**
@@ -57,7 +69,7 @@ class PermissionController extends Controller
      */
     public function edit(Permission $permission)
     {
-        dd($permission);
+        return view('employee.roles-permissions.permissions.edit', compact('permission'));
     }
 
     /**
@@ -67,9 +79,11 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Permission $permission)
+    public function update(PermissionActionRequest $request, Permission $permission)
     {
-        dd($permission);
+        $request->upadtePermission($permission);
+
+        return back();
     }
 
     /**
@@ -78,8 +92,11 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        //
+    
+        $permission->delete();
+
+        return redirect()->back();
     }
 }

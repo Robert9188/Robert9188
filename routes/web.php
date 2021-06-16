@@ -40,12 +40,14 @@ Route::middleware(['auth:employee'])->prefix('employee')->name('employee.')->gro
     Route::get('role/create', [\App\Http\Controllers\RoleController::class, 'create'])->name('role.create')->middleware('role:admin');
     Route::post('role/store', [\App\Http\Controllers\RoleController::class, 'store'])->name('role.store')->middleware('role:admin');
     Route::get('role/edit/{role}', [\App\Http\Controllers\RoleController::class, 'edit'])->name('role.edit')->middleware('role:admin');
-    Route::get('role/update/{role}', [\App\Http\Controllers\RoleController::class, 'update'])->name('role.update')->middleware('role:admin');
+    Route::post('role/update/{role}', [\App\Http\Controllers\RoleController::class, 'update'])->name('role.update')->middleware('role:admin');
+    Route::get('role/delete/{role}', [\App\Http\Controllers\RoleController::class, 'destroy'])->name('role.delete')->middleware('role:admin');
 
 //    Permissions
     Route::get('permission/create', [\App\Http\Controllers\PermissionController::class, 'create'])->name('permission.create')->middleware('role:admin');
-    Route::post('permission/store', [\App\Http\Controllers\PermissionController::class, 'store'])->name('permission.store')->middleware('role:admin');
+    Route::post('permission/store/', [\App\Http\Controllers\PermissionController::class, 'store'])->name('permission.store')->middleware('role:admin');
     Route::get('permission/edit/{permission}', [\App\Http\Controllers\PermissionController::class, 'edit'])->name('permission.edit')->middleware('role:admin');
     Route::post('permission/update/{permission}', [\App\Http\Controllers\PermissionController::class, 'update'])->name('permission.update')->middleware('role:admin');
+    Route::get('permission/delete/{permission}', [\App\Http\Controllers\PermissionController::class, 'destroy'])->name('permission.delete')->middleware('role:admin');
 
 });
