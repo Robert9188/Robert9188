@@ -14,7 +14,6 @@
                     <div class="">
                         @include('employee.dashboard.sidebar', [
                             'sidebarLinks' => [
-                                ['id' => route('employee.roles-permissions'), 'content' => 'Roles et Permissions'],
                                 ['id' => route('employee.role.create'), 'content' => 'Ajouter Role'],
                                 ['id' => route('employee.permission.create'), 'content' => 'Ajouter Permissions'],
                             ]

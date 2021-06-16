@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Http\Request;
-use App\Http\Requests\Employee\RoleActionRequest;
 
 class RoleController extends Controller
 {
@@ -37,17 +36,12 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleActionRequest $request)
+    public function store(Request $request)
     {
-        $role = $request->addRole();
-
-        $roles = Role::all();
-        $permissions = Permission::all();
-
-        return view('employee.roles-permissions.index', [
-            'roles' => $roles,
-            'permissions' => $permissions,
-        ]);
+        dd($request);
+        /*foreach ($request->input('permissions') as $key => $permission){
+            dd($key);
+        }*/
     }
 
     /**
@@ -69,20 +63,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        $permissionsOff = [];
-
-        $permissionsOn = $role->permissions;
-
-        foreach (Permission::all() as $permission) {
-
-            if (!$role->hasPermission($permission->name)){
-                array_push($permissionsOff, $permission);
-            }
-        }
-
-        //dd($permissionsOn);
-
-        return view('employee.roles-permissions.roles.edit', compact('role', 'permissionsOn', 'permissionsOff'));
+        dd($role);
     }
 
     /**
@@ -92,12 +73,9 @@ class RoleController extends Controller
      * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleActionRequest $request, Role $role)
+    public function update(Request $request, Role $role)
     {
-        //dd($request);
-        $request->updateRole($role);
-        
-        return back();
+        dd($role);
     }
 
     /**
@@ -108,8 +86,6 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role->delete();
-
-        return redirect()->back();
+        //
     }
 }
